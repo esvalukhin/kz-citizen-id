@@ -63,4 +63,20 @@ public class JuridicalIdValidation implements IdValidation {
         }
         return sum % 11 == citizenId.getValue().charAt(citizenId.getValue().length() - 1) - 0x30;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        JuridicalIdValidation that = (JuridicalIdValidation) o;
+
+        return citizenId.equals(that.citizenId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return citizenId.hashCode();
+    }
 }

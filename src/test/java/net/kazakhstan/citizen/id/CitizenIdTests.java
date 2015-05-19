@@ -18,8 +18,10 @@ package net.kazakhstan.citizen.id;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by Eugene Svalukhin.
@@ -61,6 +63,49 @@ public class CitizenIdTests {
     public void shouldCreateJuridicalSubjectId() throws Exception {
         CitizenId citizenId = new CitizenId("081140000436");
         assertTrue(citizenId.isJuridical());
+    }
 
+    @Test
+    public void objectsShouldBeEqualWithIdenticalNumbers() throws Exception {
+        CitizenId firstObject = new CitizenId("880319350220");
+        CitizenId secondObject = new CitizenId("880319350220");
+        assertTrue(firstObject.equals(secondObject));
+        assertTrue(secondObject.equals(firstObject));
+    }
+
+    @Test
+    public void shouldBeEqualToItself() throws Exception {
+        CitizenId citizenId = new CitizenId("880319350220");
+        assertTrue(citizenId.equals(citizenId));
+    }
+
+    @Test
+    public void shouldNotBeEqualsWithDifferentNumbers() throws Exception {
+        CitizenId firstObject = new CitizenId("880319350220");
+        CitizenId secondObject = new CitizenId("910501000044");
+        assertTrue(!firstObject.equals(secondObject));
+        assertTrue(!secondObject.equals(firstObject));
+    }
+
+    @Test
+    public void shouldContainsOneObjectInHashCollectionWithIdenticalNumber() throws Exception {
+        CitizenId firstId = new CitizenId("880319350220");
+        Set<CitizenId> hashSet = new HashSet<CitizenId>();
+        hashSet.add(firstId);
+        assertEquals(1, hashSet.size());
+        CitizenId secondId = new CitizenId("880319350220");
+        hashSet.add(secondId);
+        assertEquals(1, hashSet.size());
+    }
+
+    @Test
+    public void shouldContainsAllObjectsWithDifferentNumbersInHashCollection() throws Exception {
+        CitizenId firstId = new CitizenId("880319350220");
+        Set<CitizenId> hashSet = new HashSet<CitizenId>();
+        hashSet.add(firstId);
+        assertEquals(1, hashSet.size());
+        CitizenId secondId = new CitizenId("910501000044");
+        hashSet.add(secondId);
+        assertEquals(2, hashSet.size());
     }
 }

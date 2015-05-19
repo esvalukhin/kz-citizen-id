@@ -92,4 +92,20 @@ public class CitizenId {
     public boolean isJuridical() {
         return type == CitizenType.JURIDICAL;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CitizenId citizenId = (CitizenId) o;
+
+        return value.equals(citizenId.value);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }
